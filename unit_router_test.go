@@ -143,6 +143,10 @@ func Test_match(t *testing.T) {
 	T = "/a/b/c"
 	check(R, T, true)
 
+	R = "/a/+/c"
+	T = "/a/bbbb/c"
+	check(R, T, true)
+
 	R = "/+/b/c"
 	T = "/a/b/c"
 	check(R, T, true)
@@ -151,8 +155,16 @@ func Test_match(t *testing.T) {
 	T = "/a/b/c"
 	check(R, T, true)
 
+	R = "/a/b/+"
+	T = "/a/b/ccc"
+	check(R, T, true)
+
 	R = "/a/+/+"
-	T = "/a/b/c"
+	T = "/a/bbb/ccc"
+	check(R, T, true)
+
+	R = "/+/+/+"
+	T = "/aaa/bbb/ccc"
 	check(R, T, true)
 
 	R = "/+/+/+"
@@ -169,6 +181,10 @@ func Test_match(t *testing.T) {
 
 	R = "+"
 	T = "a"
+	check(R, T, true)
+
+	R = "+"
+	T = "aaa"
 	check(R, T, true)
 
 	R = "/+"
